@@ -1,1 +1,1068 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="dark-purple">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hilecim Beyfendi - 2026 VIP Oyun Parası & E-Pin Platformu</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- TEMA DEĞİŞKENLERİ --- */
+        :root[data-theme="dark-purple"] {
+            --bg-color: #07060a;
+            --card-bg: #120e1a;
+            --card-hover: #1c152a;
+            --primary-color: #a238ff;
+            --primary-glow: rgba(162, 56, 255, 0.4);
+            --secondary-color: #d980ff;
+            --text-color: #f0e6ff;
+            --text-dim: #9887b3;
+            --border-color: #2e1d45;
+            --accent-gold: #ffd700;
+        }
 
+        :root[data-theme="pitch-black"] {
+            --bg-color: #000000;
+            --card-bg: #0a0a0a;
+            --card-hover: #141414;
+            --primary-color: #8800ff;
+            --primary-glow: rgba(136, 0, 255, 0.5);
+            --secondary-color: #b366ff;
+            --text-color: #ffffff;
+            --text-dim: #777777;
+            --border-color: #222222;
+            --accent-gold: #ffb700;
+        }
+
+        :root[data-theme="neon-blue"] {
+            --bg-color: #040814;
+            --card-bg: #09132a;
+            --card-hover: #102046;
+            --primary-color: #00d2ff;
+            --primary-glow: rgba(0, 210, 255, 0.4);
+            --secondary-color: #80e5ff;
+            --text-color: #e6f9ff;
+            --text-dim: #7da5bf;
+            --border-color: #1a3860;
+            --accent-gold: #ffd700;
+        }
+
+        :root[data-theme="cyber-red"] {
+            --bg-color: #0a0304;
+            --card-bg: #1a080a;
+            --card-hover: #2a0e12;
+            --primary-color: #ff0055;
+            --primary-glow: rgba(255, 0, 85, 0.4);
+            --secondary-color: #ff6699;
+            --text-color: #ffe6ec;
+            --text-dim: #b37785;
+            --border-color: #4a151f;
+            --accent-gold: #ffcc00;
+        }
+
+        :root[data-theme="emerald-green"] {
+            --bg-color: #020a06;
+            --card-bg: #07170e;
+            --card-hover: #0d2618;
+            --primary-color: #00ff88;
+            --primary-glow: rgba(0, 255, 136, 0.4);
+            --secondary-color: #80ffc4;
+            --text-color: #e6fff2;
+            --text-dim: #6bb38d;
+            --border-color: #144229;
+            --accent-gold: #ffd700;
+        }
+
+        /* --- GENEL STİLLER --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Rajdhani', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        h1, h2, h3, h4, .brand-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* --- NAVBAR --- */
+        navbar {
+            width: 100%;
+            background: rgba(10, 8, 16, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--text-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px var(--primary-color);
+        }
+
+        .logo i {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .balance-badge {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(0, 0, 0, 0.6));
+            border: 1px solid var(--accent-gold);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .balance-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .vip-status-badge {
+            display: none;
+            background: linear-gradient(90deg, #ffd700, #ff8800);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        .theme-select {
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* --- SAYFA YAPISI --- */
+        main {
+            flex: 1;
+            max-width: 1280px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .hero-banner {
+            text-align: center;
+            padding: 30px 20px;
+            background: radial-gradient(circle, var(--card-bg) 0%, var(--bg-color) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+
+        .hero-banner h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .hero-banner p {
+            color: var(--text-dim);
+            font-size: 1.2rem;
+        }
+
+        /* TAB GEÇİŞLERİ */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- OYUN KARTLARI --- */
+        .section-title {
+            font-size: 1.6rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-6px);
+            box-shadow: 0 8px 25px var(--primary-glow);
+            background: var(--card-hover);
+        }
+
+        .game-card.selected {
+            border-color: var(--primary-color);
+            background: var(--card-hover);
+            box-shadow: 0 0 20px var(--primary-color);
+        }
+
+        .game-card.vip-locked {
+            filter: grayscale(0.6);
+            opacity: 0.85;
+        }
+
+        .game-card .lock-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+        }
+
+        .game-card i.game-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .game-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .game-card .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* --- DETAYLI FORM SİSTEMİ --- */
+        .form-container {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            margin-top: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group input, .form-group select {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .mode-toggle {
+            display: flex;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px var(--primary-glow);
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+        }
+
+        /* --- İŞLEM KONSOLU & SİMÜLASYON --- */
+        #console-output {
+            display: none;
+            background: #050508;
+            border: 1px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 20px;
+            font-family: monospace;
+            color: #00ff88;
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .progress-bar-wrap {
+            width: 100%;
+            background: #111;
+            height: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-gold));
+            transition: width 0.3s;
+        }
+
+        /* --- MARKET VE SÜER PAKETLER --- */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .store-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .store-card:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .store-card .price {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-weight: 800;
+            margin: 15px 0;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* MODAL KUTULARI */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-color);
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            box-shadow: 0 0 50px var(--primary-glow);
+            position: relative;
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #040306;
+            border-top: 1px solid var(--border-color);
+            padding: 30px 20px;
+            text-align: center;
+            color: var(--text-dim);
+            margin-top: 50px;
+            font-size: 0.9rem;
+        }
+
+        .legal-badges {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 1.2rem;
+        }
+
+        .legal-badges i {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <navbar>
+        <div class="logo">
+            <i class="fa-solid fa-gamepad"></i>
+            <span>HİLECİM BEYFENDİ</span>
+            <span class="vip-status-badge" id="nav-vip-badge"><i class="fa-solid fa-crown"></i> VIP PASS</span>
+        </div>
+
+        <div class="nav-controls">
+            <div class="balance-badge" onclick="openBalanceModal()">
+                <i class="fa-solid fa-wallet"></i>
+                <span id="user-balance">0.00</span> TL
+                <i class="fa-solid fa-circle-plus" style="margin-left:5px;"></i>
+            </div>
+
+            <select class="theme-select" onchange="changeTheme(this.value)">
+                <option value="dark-purple">💜 Koyu Mor (Varsayılan)</option>
+                <option value="pitch-black">🖤 Pitch Black (Zifiri)</option>
+                <option value="neon-blue">💙 Neon Gece</option>
+                <option value="cyber-red">❤️ Siber Kırmızı</option>
+                <option value="emerald-green">💚 Zümrüt Yeşil</option>
+            </select>
+        </div>
+    </navbar>
+
+    <!-- ANA İÇERİK -->
+    <main>
+        <!-- HERO BANNER -->
+        <div class="hero-banner">
+            <h2>2026 RESMİ OYUN EPİN & YÜKLEME SİSTEMİ</h2>
+            <p>Sezon 2026 Güvenlik Sertifikalı Yüksek Hızlı Sunucu Entegrasyonu</p>
+        </div>
+
+        <!-- SEKMELER -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('generator')"><i class="fa-solid fa-bolt"></i> Parası Gönderici</button>
+            <button class="tab-btn" onclick="switchTab('store')"><i class="fa-solid fa-cart-shopping"></i> Ücretli E-Pin Mağazası</button>
+            <button class="tab-btn" onclick="switchTab('vip')"><i class="fa-solid fa-crown"></i> VIP Beyfendi Pass</button>
+        </div>
+
+        <!-- TAB 1: ÜCRETSİZ / DÜŞÜK MİKTARLI GENERATOR -->
+        <div id="tab-generator" class="tab-content active">
+            <div class="section-title">
+                <i class="fa-solid fa-fire"></i> Desteklenen Oyunlar (Sezon 2026)
+            </div>
+
+            <div class="games-grid">
+                <!-- ÜCRETSİZ HIZLI AÇIK OYUNLAR -->
+                <div class="game-card selected" onclick="selectGame(this, 'eFootball 2026', 'GP / eFootball Puanı', false)">
+                    <i class="fa-solid fa-futbol game-icon"></i>
+                    <h3>eFootball 2026</h3>
+                    <div class="subtitle">Konami ID / Mobil / PC</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame(this, 'Roblox', 'Robux', false)">
+                    <i class="fa-solid fa-cube game-icon"></i>
+                    <h3>Roblox</h3>
+                    <div class="subtitle">Kullanıcı Adı Entegrasyonu</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame(this, 'PUBG Mobile', 'UC', false)">
+                    <i class="fa-solid fa-crosshairs game-icon"></i>
+                    <h3>PUBG Mobile</h3>
+                    <div class="subtitle">Oyuncu ID / Global</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame(this, 'Free Fire', 'Elmas', false)">
+                    <i class="fa-solid fa-fire-flame-curved game-icon"></i>
+                    <h3>Free Fire</h3>
+                    <div class="subtitle">Garena ID Servisi</div>
+                </div>
+
+                <div class="game-card" onclick="selectGame(this, 'Brawl Stars', 'Yeşil Taş', false)">
+                    <i class="fa-solid fa-star game-icon"></i>
+                    <h3>Brawl Stars</h3>
+                    <div class="subtitle">Supercell ID Bağlantısı</div>
+                </div>
+
+                <!-- VIP KİLİTLİ OYUNLAR -->
+                <div class="game-card vip-locked" id="card-valorant" onclick="selectGame(this, 'Valorant Mobile', 'VP (Riot Points)', true)">
+                    <span class="lock-badge"><i class="fa-solid fa-lock"></i> VIP OYUN</span>
+                    <i class="fa-solid fa-shield-halved game-icon"></i>
+                    <h3>Valorant Mobile</h3>
+                    <div class="subtitle">Riot Games Direct SSL</div>
+                </div>
+
+                <div class="game-card vip-locked" id="card-fcmobile" onclick="selectGame(this, 'EA FC Mobile', 'FC Points', true)">
+                    <span class="lock-badge"><i class="fa-solid fa-lock"></i> VIP OYUN</span>
+                    <i class="fa-solid fa-trophy game-icon"></i>
+                    <h3>EA FC Mobile</h3>
+                    <div class="subtitle">EA Account Cloud Sync</div>
+                </div>
+
+                <div class="game-card vip-locked" id="card-gta" onclick="selectGame(this, 'GTA Mobile 2026', 'Shark Cash', true)">
+                    <span class="lock-badge"><i class="fa-solid fa-lock"></i> VIP OYUN</span>
+                    <i class="fa-solid fa-car-burst game-icon"></i>
+                    <h3>GTA Mobile 2026</h3>
+                    <div class="subtitle">Rockstar Social Club</div>
+                </div>
+            </div>
+
+            <!-- DETAYLI FORM BÖLÜMÜ -->
+            <div class="form-container">
+                <div class="section-title" style="font-size: 1.3rem; border:none;">
+                    <i class="fa-solid fa-sliders"></i> İşlem ve Profil Ayarları (<span id="target-game-title">eFootball 2026</span>)
+                </div>
+
+                <!-- MOD SEÇİMİ (Ücretsiz vs VIP/Paralı) -->
+                <div class="mode-toggle">
+                    <button class="mode-btn active" id="btn-mode-free" onclick="setFormMode('free')">Ücretsiz Mod (Sınırlı: 1-10 Adet)</button>
+                    <button class="mode-btn" id="btn-mode-paid" onclick="setFormMode('paid')">Gelişmiş / Paralı VIP Modu (Sınırsız)</button>
+                </div>
+
+                <form id="main-generator-form" onsubmit="executeGenerator(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-user"></i> Oyuncu Kullanıcı Adı veya ID:</label>
+                            <input type="text" id="inp-username" placeholder="Örn: Beyfendi_Pro2026" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-mobile-screen"></i> Cihaz Türü:</label>
+                            <select id="inp-device" required>
+                                <option value="Android">Android Akıllı Telefon / Tablet</option>
+                                <option value="iOS">iOS (iPhone / iPad)</option>
+                                <option value="Windows">Windows PC / Laptop</option>
+                                <option value="MacOS">Apple Mac Series</option>
+                                <option value="Console">PlayStation 5 / Xbox Series X</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-globe"></i> Sunucu Bölgesi:</label>
+                            <select id="inp-region">
+                                <option value="TR">Türkiye (TR-1 Direct Line)</option>
+                                <option value="EU">Avrupa (EU West Proxy)</option>
+                                <option value="NA">Kuzey Amerika (NA Fast)</option>
+                                <option value="ASIA">Asya Pasifik</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-coins"></i> Yüklenecek Miktar (<span id="currency-label-name">GP</span>):</label>
+                            <!-- Ücretsiz Miktar Seçeneği (Max 10) -->
+                            <select id="inp-amount-free">
+                                <option value="1">1 Adet (Test Miktarı)</option>
+                                <option value="3">3 Adet</option>
+                                <option value="5">5 Adet</option>
+                                <option value="8">8 Adet</option>
+                                <option value="10">10 Adet (Maksimum Ücretsiz Limit)</option>
+                            </select>
+
+                            <!-- Ücretli Miktar Seçeneği (Gizli) -->
+                            <select id="inp-amount-paid" style="display: none;">
+                                <option value="5000">5,000 Birim (Süper Paket)</option>
+                                <option value="25000">25,000 Birim (Popüler VIP)</option>
+                                <option value="100000">100,000 Birim (Mega Entegrasyon)</option>
+                                <option value="500000">500,000 Birim (Limit Sınırsız Beyfendi)</option>
+                            </select>
+                        </div>
+
+                        <!-- GELİŞMİŞ PARALI / VIP DETAY DETAYLARI -->
+                        <div class="form-group paid-only-field" style="display: none;">
+                            <label><i class="fa-solid fa-shield-virus"></i> Anti-Ban Proxy Katmanı:</label>
+                            <select id="inp-proxy">
+                                <option value="socks5">SOCKS5 Residential High-Anon Proxy</option>
+                                <option value="aes256">AES-256 Bit Hardware Encryption</option>
+                                <option value="ghost">Ghost Stealth Tunneling v4</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group paid-only-field" style="display: none;">
+                            <label><i class="fa-solid fa-key"></i> Giriş / OAuth Protokolü:</label>
+                            <select id="inp-oauth">
+                                <option value="direct">Direct Cloud Injection API</option>
+                                <option value="supercell">Supercell / Konami Token Handshake</option>
+                                <option value="google">Google Play Game Services v2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-action">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span id="btn-submit-text">Sisteme Gönder ve İşlemi Başlat</span>
+                    </button>
+                </form>
+
+                <!-- KONSOL VE YÜKLEME SİMOVASYONU -->
+                <div id="console-output">
+                    <div id="console-logs"></div>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: ÜCRETLİ MAĞAZA -->
+        <div id="tab-store" class="tab-content">
+            <div class="section-title">
+                <i class="fa-solid fa-basket-shopping"></i> Anında Teslimat E-Pin Paketleri
+            </div>
+
+            <div class="store-grid">
+                <div class="store-card">
+                    <div>
+                        <h3>eFootball 12,000 Puan</h3>
+                        <p style="color:var(--text-dim); margin-top:5px;">2026 Sezon Kadro Bonusu</p>
+                        <div class="price">149.99 TL</div>
+                    </div>
+                    <button class="btn-action" onclick="buyStoreItem('eFootball 12,000 Puan', 149.99)">Satın Al</button>
+                </div>
+
+                <div class="store-card">
+                    <div>
+                        <h3>Roblox 10,000 Robux</h3>
+                        <p style="color:var(--text-dim); margin-top:5px;">Anında Grubunuza Aktarılır</p>
+                        <div class="price">299.99 TL</div>
+                    </div>
+                    <button class="btn-action" onclick="buyStoreItem('10,000 Robux', 299.99)">Satın Al</button>
+                </div>
+
+                <div class="store-card">
+                    <div>
+                        <h3>PUBG Mobile 8,100 UC</h3>
+                        <p style="color:var(--text-dim); margin-top:5px;">Royale Pass 2026 Hediye</p>
+                        <div class="price">349.99 TL</div>
+                    </div>
+                    <button class="btn-action" onclick="buyStoreItem('PUBG 8,100 UC', 349.99)">Satın Al</button>
+                </div>
+
+                <div class="store-card">
+                    <div>
+                        <h3>Valorant 11,000 VP</h3>
+                        <p style="color:var(--text-dim); margin-top:5px;">Tüm Bıçak & Desen Paketleri</p>
+                        <div class="price">499.99 TL</div>
+                    </div>
+                    <button class="btn-action" onclick="buyStoreItem('Valorant 11,000 VP', 499.99)">Satın Al</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: VIP BEYFENDİ PASS -->
+        <div id="tab-vip" class="tab-content">
+            <div class="hero-banner" style="background: linear-gradient(135deg, rgba(255,215,0,0.1), transparent);">
+                <i class="fa-solid fa-crown" style="font-size: 4rem; color: var(--accent-gold); margin-bottom: 15px;"></i>
+                <h2 style="color: var(--accent-gold);">BEYFENDİ VIP MEMBERSHIP</h2>
+                <p>Tüm Kilitli Oyunlara Erişin & Sınırsız Oyun Parası Aktarım Hakkı Kazanın</p>
+            </div>
+
+            <div class="store-grid" style="max-width: 800px; margin: 0 auto;">
+                <div class="store-card" style="border-color: var(--accent-gold);">
+                    <div>
+                        <h3 style="color:var(--accent-gold);">Aylık VIP Üyelik</h3>
+                        <ul style="text-align:left; margin:20px 0; color:var(--text-dim); line-height:2;">
+                            <li><i class="fa-solid fa-check" style="color:var(--accent-gold)"></i> Tüm Kilitli Oyunların Kilidi Açılır</li>
+                            <li><i class="fa-solid fa-check" style="color:var(--accent-gold)"></i> 500,000 Miktar Limiti</li>
+                            <li><i class="fa-solid fa-check" style="color:var(--accent-gold)"></i> Anti-Ban Özel SOCKS5 Proxy</li>
+                            <li><i class="fa-solid fa-check" style="color:var(--accent-gold)"></i> Öncelikli 24/7 Sunucu Tüneli</li>
+                        </ul>
+                        <div class="price">199.00 TL / Ay</div>
+                    </div>
+                    <button class="btn-action" style="background: linear-gradient(90deg, #ffd700, #ff8800); color:black;" onclick="activateVip()">VIP Aktivasyonu Başlat</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- BAKİYE YÜKLEME MODALI (KART BİLGİSİ İÇERİR) -->
+    <div class="modal-overlay" id="modal-balance">
+        <div class="modal-card">
+            <span class="close-modal" onclick="closeModal('modal-balance')">&times;</span>
+            <div class="section-title"><i class="fa-solid fa-credit-card"></i> Güvenli Bakiye Yükleme</div>
+
+            <form onsubmit="processAddBalance(event)">
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Yüklenecek Tutar (TL):</label>
+                    <select id="inp-topup-amount">
+                        <option value="100">100.00 TL</option>
+                        <option value="250">250.00 TL</option>
+                        <option value="500">500.00 TL (+50 TL Bonus)</option>
+                        <option value="1000">1000.00 TL (+150 TL Bonus)</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Kart Üzerindeki İsim Soyisim:</label>
+                    <input type="text" placeholder="Örn: Hasan Dilsiz" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 15px;">
+                    <label>Kart Numarası:</label>
+                    <input type="text" placeholder="4543 **** **** 2026" maxlength="19" required>
+                </div>
+
+                <div style="display:flex; gap:10px; margin-bottom: 20px;">
+                    <div class="form-group" style="flex:1;">
+                        <label>Son Kullanma:</label>
+                        <input type="text" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="form-group" style="flex:1;">
+                        <label>CVV / CVC:</label>
+                        <input type="text" placeholder="***" maxlength="3" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-action"><i class="fa-solid fa-lock"></i> 256-Bit SSL ile Öde ve Yükle</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER TELİF VE BİLGİ -->
+    <footer>
+        <p>© 2026 HİLECİM BEYFENDİ INC. TÜM HAKLARI SAKLIDIR.</p>
+        <p style="margin-top:5px; color: var(--text-dim); font-size: 0.8rem;">Bu web sitesi 2026 Sezonu şaka ve eğlence simülasyon protokolleri kapsamında geliştirilmiştir.</p>
+        <div class="legal-badges">
+            <i class="fa-solid fa-shield-virus" title="Anti-Cheat Protected"></i>
+            <i class="fa-solid fa-lock" title="SSL Encrypted"></i>
+            <i class="fa-solid fa-certificate" title="Verified 2026"></i>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT KODLARI -->
+    <script>
+        // DURUM DEĞİŞKENLERİ
+        let userBalance = 0.00;
+        let isVip = false;
+        let selectedGameName = 'eFootball 2026';
+        let selectedCurrencyName = 'GP / eFootball Puanı';
+        let isVipGame = false;
+        let currentFormMode = 'free';
+
+        // TEMA DEĞİŞTİRİCİ
+        function changeTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+        }
+
+        // TAB GEÇİŞLERİ
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            event.currentTarget.classList.add('active');
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        // OYUN SEÇİMİ
+        function selectGame(cardElement, gameName, currencyName, requiresVip) {
+            if (requiresVip && !isVip) {
+                alert("⚠️ UYARI: " + gameName + " VIP korumalı bir oyundur! Lütfen VIP Beyfendi Pass üyeliğinizi aktifleştirin.");
+                switchTab('vip');
+                return;
+            }
+
+            document.querySelectorAll('.game-card').forEach(c => c.classList.remove('selected'));
+            cardElement.classList.add('selected');
+
+            selectedGameName = gameName;
+            selectedCurrencyName = currencyName;
+            isVipGame = requiresVip;
+
+            document.getElementById('target-game-title').innerText = gameName;
+            document.getElementById('currency-label-name').innerText = currencyName;
+        }
+
+        // FORM MODU SEÇİMİ (Free vs Paid)
+        function setFormMode(mode) {
+            currentFormMode = mode;
+            document.getElementById('btn-mode-free').classList.toggle('active', mode === 'free');
+            document.getElementById('btn-mode-paid').classList.toggle('active', mode === 'paid');
+
+            const paidFields = document.querySelectorAll('.paid-only-field');
+            const inpFree = document.getElementById('inp-amount-free');
+            const inpPaid = document.getElementById('inp-amount-paid');
+
+            if (mode === 'paid') {
+                paidFields.forEach(f => f.style.display = 'flex');
+                inpFree.style.display = 'none';
+                inpPaid.style.display = 'block';
+                document.getElementById('btn-submit-text').innerText = 'Gelişmiş VIP Entegrasyonunu Başlat';
+            } else {
+                paidFields.forEach(f => f.style.display = 'none');
+                inpFree.style.display = 'block';
+                inpPaid.style.display = 'none';
+                document.getElementById('btn-submit-text').innerText = 'Ücretsiz Miktarı Gönder';
+            }
+        }
+
+        // GENERATOR / SİMÜLASYON İŞLEMİ
+        function executeGenerator(e) {
+            e.preventDefault();
+
+            const username = document.getElementById('inp-username').value;
+            const amount = currentFormMode === 'free' 
+                ? document.getElementById('inp-amount-free').value 
+                : document.getElementById('inp-amount-paid').value;
+
+            const consoleBox = document.getElementById('console-output');
+            const logs = document.getElementById('console-logs');
+            const progressBar = document.getElementById('progress-bar');
+
+            consoleBox.style.display = 'block';
+            logs.innerHTML = '';
+            progressBar.style.width = '0%';
+
+            const steps = [
+                `[INIT] ${selectedGameName} API Sunucusu Bağlantısı Kuruluyor...`,
+                `[AUTH] Kullanıcı '${username}' doğrulanıyor...`,
+                `[SEC] 2026 SSL / Handshake Katmanı Geçildi.`,
+                `[INJECT] ${amount} adet ${selectedCurrencyName} paket verisi hazırlanıyor...`,
+                `[SUCCESS] İşlem Başarıyla Tamamlandı! Bakiyeniz Hesabınıza Yansıtıldı.`
+            ];
+
+            let index = 0;
+            const timer = setInterval(() => {
+                if (index < steps.length) {
+                    const p = document.createElement('p');
+                    p.style.margin = '4px 0';
+                    p.innerText = steps[index];
+                    logs.appendChild(p);
+                    logs.scrollTop = logs.scrollHeight;
+
+                    index++;
+                    progressBar.style.width = (index / steps.length * 100) + '%';
+                } else {
+                    clearInterval(timer);
+                }
+            }, 1200);
+        }
+
+        // BAKİYE YÜKLEME MODAL İŞLEMLERİ
+        function openBalanceModal() {
+            document.getElementById('modal-balance').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function processAddBalance(e) {
+            e.preventDefault();
+            const addVal = parseFloat(document.getElementById('inp-topup-amount').value);
+            
+            userBalance += addVal;
+            document.getElementById('user-balance').innerText = userBalance.toFixed(2);
+            
+            alert(`✅ BAŞARILI: Hesabınıza ${addVal.toFixed(2)} TL bakiye eklendi!`);
+            closeModal('modal-balance');
+        }
+
+        // MAĞAZADAN E-PIN SATIN ALMA
+        function buyStoreItem(itemName, price) {
+            if (userBalance >= price) {
+                userBalance -= price;
+                document.getElementById('user-balance').innerText = userBalance.toFixed(2);
+                alert(`🎉 TEBRİKLER! "${itemName}" başarıyla satın alındı. Kodunuz: HB-2026-${Math.floor(Math.random()*899999 + 100000)}`);
+            } else {
+                alert(`❌ YERSİZ BAKİYE: Bu işlem için ${price} TL bakiye gereklidir. Lütfen üst menüden bakiye yükleyin.`);
+                openBalanceModal();
+            }
+        }
+
+        // VIP AKTİVASYONU
+        function activateVip() {
+            if (isVip) {
+                alert("👑 Zaten VIP Beyfendi Pass üyeliğiniz aktiftir!");
+                return;
+            }
+
+            if (userBalance >= 199.00) {
+                userBalance -= 199.00;
+                document.getElementById('user-balance').innerText = userBalance.toFixed(2);
+                isVip = true;
+
+                // VIP Rozetini Göster & Kilitleri Kaldır
+                document.getElementById('nav-vip-badge').style.display = 'inline-block';
+                document.querySelectorAll('.game-card.vip-locked').forEach(card => {
+                    card.classList.remove('vip-locked');
+                    const badge = card.querySelector('.lock-badge');
+                    if (badge) badge.remove();
+                });
+
+                alert("👑 TEBRİKLER! VIP Beyfendi Pass Aktifleştirildi. Tüm kilitli oyunların erişimi açıldı!");
+                switchTab('generator');
+            } else {
+                alert("❌ YETERSİZ BAKİYE: VIP Pass için 199.00 TL gereklidir. Lütfen bakiye yükleyin.");
+                openBalanceModal();
+            }
+        }
+    </script>
+</body>
+</html>
